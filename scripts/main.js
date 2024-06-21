@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider = document.querySelector('.hero-slider');
     let slideIndex = 0;
     let isUserScrolling = false;
-    let previousScrollLeft = 0;
+    let previousScrollLeft = slider.scrollLeft;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -26,7 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (i < Math.floor(scrollLeft / slideWidth)) {
                 fill.style.width = '100%';
             } else if (i === Math.floor(scrollLeft / slideWidth)) {
-                fill.style.width = direction === 'right' ? `${progress * 100}%` : `${(1 - progress) * 100}%`;
+                if (direction === 'right') {
+                    fill.style.width = `${progress * 100}%`;
+                } else {
+                    fill.style.width = `${(1 - progress) * 100}%`;
+                }
             } else {
                 fill.style.width = '0';
             }
