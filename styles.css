@@ -7,6 +7,7 @@
 
 body {
     line-height: 1.6;
+    background: #f4f4f4;
 }
 
 .container {
@@ -78,11 +79,16 @@ nav {
 
 .features {
     padding: 50px 0;
+    background: #fff;
     text-align: center;
 }
 
 .features .feature {
     margin-bottom: 20px;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 footer {
