@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
-    let slideIndex = 0;
-    let isUserScrolling = false;
+    let isScrolling = false;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -14,45 +13,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function scrollToSlide(index) {
         if (index < 0 || index >= slides.length) return;
         slider.scrollTo({
-            left: slides[index].offsetLeft - slider.offsetLeft,
+            left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
         updateDots(index);
-        slideIndex = index;
     }
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            isUserScrolling = true;
+            isScrolling = true;
             scrollToSlide(index);
+            setTimeout(() => {
+                isScrolling = false;
+            }, 500); // Wait for the scrolling to finish
         });
     });
 
-    slider.addEventListener('scroll', () => {
-        if (!isUserScrolling) {
-            const scrollLeft = slider.scrollLeft;
-            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
-            const index = Math.round(scrollLeft / slideWidth);
-            if (index !== slideIndex) {
-                updateDots(index);
-                slideIndex = index;
-            }
-        }
-    });
-
-    slider.addEventListener('scrollend', () => {
-        if (!isUserScrolling) {
-            scrollToSlide(slideIndex);
-        }
-    });
-
     const observer = new IntersectionObserver((entries) => {
-        if (isUserScrolling) return;
+        if (isScrolling) return;
+
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
                 updateDots(index);
-                slideIndex = index;
             }
         });
     }, {
@@ -67,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slider.addEventListener('touchstart', handleTouchStart, false);
     slider.addEventListener('touchmove', handleTouchMove, false);
+    slider.addEventListener('touchend', handleTouchEnd, false);
 
     function getTouches(evt) {
         return evt.touches || evt.originalEvent.touches;
@@ -76,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstTouch = getTouches(evt)[0];
         xDown = firstTouch.clientX;
         yDown = firstTouch.clientY;
-        isUserScrolling = true;
+        isScrolling = true;
     }
 
     function handleTouchMove(evt) {
@@ -91,14 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                scrollToSlide(slideIndex + 1);
+                // Swiping left
+                scrollToSlide([...slides].indexOf(document.elementFromPoint(xUp, yUp)) + 1);
             } else {
-                scrollToSlide(slideIndex - 1);
+                // Swiping right
+                scrollToSlide([...slides].indexOf(document.elementFromPoint(xUp, yUp)) - 1);
             }
         }
 
         xDown = null;
         yDown = null;
-        isUserScrolling = false;
+    }
+
+    function handleTouchEnd() {
+        setTimeout(() => {
+            isScrolling = false;
+        }, 500); // Wait for the scrolling to finish
     }
 });
