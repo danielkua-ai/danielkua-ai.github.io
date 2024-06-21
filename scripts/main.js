@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let slideIndex = 0;
     let previousSlideIndex = 0;
     let isUserScrolling = false;
-    let previousScrollLeft = 0;
+    let previousScrollLeft = 0;  // Initialize previousScrollLeft to track the previous scroll position
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.classList.toggle('active', i === index);
             fill.style.width = i === index ? '100%' : '0';
         });
+        slideIndex = index;  // Update the slideIndex here
     }
 
     function fillDots() {
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (i < currentIndex) {
                 fill.style.width = '100%';
             } else if (i === currentIndex) {
-                const direction = scrollLeft > previousScrollLeft ? 'right' : 'left';
+                const direction = scrollLeft > previousScrollLeft ? 'right' : 'left';  // Determine the scroll direction
                 if (direction === 'right') {
                     fill.style.width = `${progress * 100}%`;
                 } else {
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         previousSlideIndex = currentIndex;
-        previousScrollLeft = scrollLeft;
+        previousScrollLeft = scrollLeft;  // Update previousScrollLeft with the current scroll position
     }
 
     function scrollToSlide(index) {
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const index = Math.round(scrollLeft / slideWidth);
         updateDots(index);
-        slideIndex = index;
+        slideIndex = index;  // Update slideIndex based on current scroll position
     });
 
     const observer = new IntersectionObserver((entries) => {
