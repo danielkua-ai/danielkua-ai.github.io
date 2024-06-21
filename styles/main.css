@@ -8,93 +8,110 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: auto;
     overflow: hidden;
 }
 
 header {
-    background: #333;
-    color: #fff;
-    padding-top: 30px;
-    min-height: 70px;
-    border-bottom: #77c7ff 3px solid;
+    background: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #eaeaea;
 }
 
-header a {
-    color: #fff;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 16px;
-}
-
-header ul {
-    padding: 0;
-    list-style: none;
-}
-
-header li {
-    display: inline;
-    padding: 0 20px 0 20px;
-}
-
-.logo {
-    float: left;
-    font-size: 24px;
-    text-transform: uppercase;
-}
-
-nav {
+header nav {
     float: right;
-    margin-top: 10px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }
 
 .hero {
-    background: #77c7ff;
-    color: #fff;
-    padding: 100px 0;
-    text-align: center;
+    position: relative;
 }
 
-.hero h2 {
+.hero-slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-slider .slide {
+    width: 100%;
+    position: relative;
+    display: none;
+}
+
+.hero-slider .slide img {
+    width: 100%;
+    height: auto;
+}
+
+.hero-slider .slide .caption {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: #fff;
+}
+
+.hero-slider .slide .caption h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero-slider .slide .caption p {
+    font-size: 18px;
     margin-bottom: 20px;
-    font-size: 50px;
 }
 
-.hero p {
-    font-size: 20px;
-}
-
-.btn {
+.hero-slider .slide .caption .btn {
     display: inline-block;
-    color: #fff;
-    background: #333;
+    background: #fff;
+    color: #333;
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
 }
 
-.features {
-    padding: 50px 0;
-    background: #fff;
-    text-align: center;
+.hero-slider .slide.active {
+    display: block;
 }
 
-.features .feature {
-    margin-bottom: 20px;
-    padding: 20px;
-    background: #f4f4f4;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.slider-nav {
+    text-align: center;
+    margin-top: 20px;
 }
 
 footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
+    background: #fff;
     padding: 20px 0;
+    border-top: 1px solid #eaeaea;
+    text-align: center;
 }
 
 footer p {
     margin: 0;
+}
+
+footer .social-icons {
+    margin-top: 10px;
+}
+
+footer .social-icons a {
+    display: inline-block;
+    margin: 0 10px;
 }

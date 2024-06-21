@@ -13,48 +13,56 @@
 <body>
     <header>
         <div class="container">
-            <h1 class="logo">My AI Website</h1>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
                     <li><a href="#">Research</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Safety</a></li>
+                    <li><a href="#">Company</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <section class="hero">
-        <div class="container">
-            <h2>Welcome to the Future of AI</h2>
-            <p>Discover groundbreaking AI research and applications. Explore our work and join us in shaping the future.</p>
-            <a href="#" class="btn">Learn More</a>
+        <div class="hero-slider">
+            <div class="slide active">
+                <img src="images/hero-image1.jpg" alt="Apple & ChatGPT">
+                <div class="caption">
+                    <h2>Apple & ChatGPT</h2>
+                    <p>OpenAI and Apple announce partnership to integrate ChatGPT into Apple experiences.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="images/hero-image2.jpg" alt="Another Hero Image">
+                <div class="caption">
+                    <h2>Another Headline</h2>
+                    <p>Another description.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
         </div>
-    </section>
-    <section class="features">
-        <div class="container">
-            <div class="feature">
-                <h3>Innovative Research</h3>
-                <p>Leading the way in AI research and development.</p>
-            </div>
-            <div class="feature">
-                <h3>Advanced Applications</h3>
-                <p>Applying AI to solve real-world problems.</p>
-            </div>
-            <div class="feature">
-                <h3>Community Collaboration</h3>
-                <p>Working together to push the boundaries of AI.</p>
-            </div>
+        <div class="slider-nav">
+            <button class="prev">Prev</button>
+            <button class="next">Next</button>
         </div>
     </section>
     <footer>
         <div class="container">
             <p>&copy; 2024 My AI Website. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="#"><img src="icons/github.png" alt="GitHub"></a>
+                <a href="#"><img src="icons/youtube.png" alt="YouTube"></a>
+                <a href="#"><img src="icons/linkedin.png" alt="LinkedIn"></a>
+                <a href="#"><img src="icons/instagram.png" alt="Instagram"></a>
+                <a href="#"><img src="icons/tiktok.png" alt="TikTok"></a>
+                <a href="#"><img src="icons/discord.png" alt="Discord"></a>
+            </div>
         </div>
     </footer>
     <script src="scripts/beacon.min.js"></script>
     <script src="scripts/gtm.js"></script>
     <script src="scripts/webpack-a5f4731b9608af3c.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
