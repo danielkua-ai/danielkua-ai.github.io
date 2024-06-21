@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollLeft = slider.scrollLeft;
         const slideWidth = slides[0].clientWidth;
         const scrollIndex = Math.round(scrollLeft / slideWidth);
+        const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
 
         dots.forEach((dot, index) => {
             const fill = dot.querySelector('.fill');
@@ -16,10 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (index === scrollIndex) {
                 const progress = (scrollLeft % slideWidth) / slideWidth * 100;
                 fill.style.width = `${progress}%`;
+                fill.style.transformOrigin = direction === 'right' ? 'left' : 'right';
             } else {
                 fill.style.width = '0%';
             }
         });
+
+        lastScrollLeft = scrollLeft;
     }
 
     function scrollToSlide(index) {
@@ -38,9 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slider.addEventListener('scroll', () => {
-        window.requestAnimationFrame(() => {
-            updateDots();
-        });
+        window.requestAnimationFrame(updateDots);
     });
 
     let xDown = null;
