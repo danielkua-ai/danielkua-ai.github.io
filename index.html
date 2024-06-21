@@ -37,6 +37,10 @@
             font-weight: bold;
         }
 
+        .hero-slider-container {
+            padding: 0 40px; /* Adjust the padding as needed */
+        }
+
         .hero-slider {
             display: flex;
             overflow-x: auto;
@@ -44,7 +48,6 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             position: relative;
-            padding: 20px 0 20px 20px; /* Adjust padding on the left side */
             gap: 20px;
             scrollbar-width: none; /* Firefox */
         }
@@ -54,7 +57,7 @@
         }
 
         .slide {
-            flex: 0 0 calc(100vw - 40px); /* Adjusting the width to 60% of viewport width */
+            flex: 0 0 calc(60vw - 40px); /* Adjusting the width to 60% of viewport width */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -67,7 +70,11 @@
         }
 
         .slide:first-child {
-            margin-left: 20px; /* Adding margin to the first slide */
+            margin-left: 0; /* Reset margin for the first slide */
+        }
+
+        .slide:last-child {
+            margin-right: 0; /* Reset margin for the last slide */
         }
 
         .slide:hover {
@@ -76,7 +83,7 @@
 
         .slide img {
             width: 100%;
-            height: 50vh; /* Adjust height as needed */
+            height: auto; /* Maintain original image aspect ratio */
             object-fit: cover;
             border-radius: 20px;
         }
@@ -157,24 +164,26 @@
             </nav>
         </div>
     </header>
-    <section class="hero-slider">
-        <div class="slide">
-            <img src="images/hero-image1.jpg" alt="Hero Image 1">
-            <div class="caption">
-                <h1>Hello World!</h1>
-                <p>Welcome to my website!</p>
-                <a href="#" class="learn-more-button">Learn more</a>
+    <div class="hero-slider-container">
+        <section class="hero-slider">
+            <div class="slide">
+                <img src="images/hero-image1.jpg" alt="Hero Image 1">
+                <div class="caption">
+                    <h1>Hello World!</h1>
+                    <p>Welcome to my website!</p>
+                    <a href="#" class="learn-more-button">Learn more</a>
+                </div>
             </div>
-        </div>
-        <div class="slide">
-            <img src="images/hero-image2.jpg" alt="Hero Image 2">
-            <div class="caption">
-                <h1>Innovating AI</h1>
-                <p>Statistics and Machine Learning</p>
-                <a href="#" class="learn-more-button">Learn more</a>
+            <div class="slide">
+                <img src="images/hero-image2.jpg" alt="Hero Image 2">
+                <div class="caption">
+                    <h1>Innovating AI</h1>
+                    <p>Statistics and Machine Learning</p>
+                    <a href="#" class="learn-more-button">Learn more</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
     <div class="slider-nav">
         <span class="dot" onclick="currentSlide(0)"></span>
         <span class="dot" onclick="currentSlide(1)"></span>
