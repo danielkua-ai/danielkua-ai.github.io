@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function scrollToSlide(index) {
         slider.scrollTo({
-            left: slides[index].offsetLeft,
+            left: slides[index].offsetLeft - slider.offsetLeft,
             behavior: 'smooth'
         });
         updateDots(index);
