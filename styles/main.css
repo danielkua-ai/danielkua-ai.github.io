@@ -38,16 +38,17 @@ nav ul li a {
 }
 
 .slide {
-    min-width: 100%;
+    display: none;
     transition: transform 0.5s ease;
 }
 
 .slide img {
-    width: 100%;
+    width: 90%;
     height: 70vh;
     object-fit: cover;
     border-radius: 20px; /* Rounded corners */
     transition: transform 0.5s ease;
+    margin: 0 auto; /* Center the image */
 }
 
 .slide img:hover {
@@ -91,10 +92,8 @@ nav ul li a {
 
 .slider-nav {
     text-align: center;
-    position: absolute;
-    bottom: -30px; /* Position dots below the image */
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    bottom: 20px; /* Position dots below the image */
 }
 
 .slider-nav .dot {
