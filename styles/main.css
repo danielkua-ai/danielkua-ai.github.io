@@ -139,11 +139,10 @@ nav ul li a {
     display: inline-block;
     overflow: hidden;
     position: relative;
-    transition: background-color 0.3s, width 0.3s;
+    transition: background-color 0.3s;
 }
 
-.slider-nav .dot::before {
-    content: '';
+.slider-nav .dot .fill {
     position: absolute;
     top: 0;
     left: 0;
@@ -153,7 +152,7 @@ nav ul li a {
     transition: width 0.3s;
 }
 
-.slider-nav .dot.active::before {
+.slider-nav .dot.active .fill {
     width: 100%;
 }
 

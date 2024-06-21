@@ -9,11 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDots(index) {
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
-            if (i === index) {
-                dot.querySelector('::before').style.width = '100%';
-            } else {
-                dot.querySelector('::before').style.width = '0';
-            }
         });
     }
 
@@ -22,12 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const progress = (scrollLeft % slideWidth) / slideWidth;
         dots.forEach((dot, i) => {
+            const fill = dot.querySelector('.fill');
             if (i < Math.floor(scrollLeft / slideWidth)) {
-                dot.querySelector('::before').style.width = '100%';
+                fill.style.width = '100%';
             } else if (i === Math.floor(scrollLeft / slideWidth)) {
-                dot.querySelector('::before').style.width = `${progress * 100}%`;
+                fill.style.width = `${progress * 100}%`;
             } else {
-                dot.querySelector('::before').style.width = '0';
+                fill.style.width = '0';
             }
         });
     }
