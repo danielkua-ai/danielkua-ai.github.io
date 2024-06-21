@@ -14,3 +14,28 @@ function showSlides(n) {
     dots.forEach(dot => dot.classList.remove('active'));
     dots[slideIndex].classList.add('active');
 }
+
+// Swiping functionality
+let touchStartX = 0;
+let touchEndX = 0;
+
+function handleTouchStart(event) {
+    touchStartX = event.changedTouches[0].screenX;
+}
+
+function handleTouchMove(event) {
+    touchEndX = event.changedTouches[0].screenX;
+}
+
+function handleTouchEnd() {
+    if (touchEndX < touchStartX) {
+        slideIndex++;
+    } else if (touchEndX > touchStartX) {
+        slideIndex--;
+    }
+    showSlides(slideIndex);
+}
+
+document.querySelector('.hero-slider').addEventListener('touchstart', handleTouchStart, false);
+document.querySelector('.hero-slider').addEventListener('touchmove', handleTouchMove, false);
+document.querySelector('.hero-slider').addEventListener('touchend', handleTouchEnd, false);
