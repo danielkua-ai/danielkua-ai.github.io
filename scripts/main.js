@@ -10,10 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollIndex = Math.round(scrollLeft / slideWidth);
 
         dots.forEach((dot, index) => {
-            if (index === scrollIndex) {
-                dot.querySelector('.fill').style.width = '100%';
+            const fill = dot.querySelector('.fill');
+            if (index < scrollIndex) {
+                fill.style.width = '100%';
+            } else if (index === scrollIndex) {
+                const progress = (scrollLeft % slideWidth) / slideWidth * 100;
+                fill.style.width = `${progress}%`;
             } else {
-                dot.querySelector('.fill').style.width = '0%';
+                fill.style.width = '0%';
             }
         });
     }
@@ -34,10 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slider.addEventListener('scroll', () => {
-        const scrollLeft = slider.scrollLeft;
-        const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
-        lastScrollLeft = scrollLeft;
-
         window.requestAnimationFrame(() => {
             updateDots();
         });
