@@ -4,17 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider = document.querySelector('.hero-slider');
     let slideIndex = 0;
     let isUserScrolling = false;
-    let isScrolling;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
             const fill = dot.querySelector('.fill');
-            if (i === index) {
-                fill.style.width = '100%';
-            } else {
-                fill.style.width = '0';
-            }
+            dot.classList.toggle('active', i === index);
+            fill.style.width = i === index ? '100%' : '0';
         });
     }
 
@@ -36,23 +31,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function scrollToSlide(index) {
         if (index < 0 || index >= slides.length) return;
+        isUserScrolling = true;
         slider.scrollTo({
             left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
         updateDots(index);
         slideIndex = index;
+        setTimeout(() => {
+            isUserScrolling = false;
+        }, 500);
     }
 
     dots.forEach((dot, index) => {
-        dot.innerHTML = '<div class="fill"></div>';
         dot.addEventListener('click', () => {
-            isUserScrolling = true;
             scrollToSlide(index);
-            clearTimeout(isScrolling);
-            isScrolling = setTimeout(() => {
-                isUserScrolling = false;
-            }, 500);
         });
     });
 
@@ -61,14 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fillDots();
 
-        clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            const scrollLeft = slider.scrollLeft;
-            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
-            const index = Math.round(scrollLeft / slideWidth);
-            updateDots(index);
-            slideIndex = index;
-        }, 100);
+        const scrollLeft = slider.scrollLeft;
+        const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+        const index = Math.round(scrollLeft / slideWidth);
+        updateDots(index);
+        slideIndex = index;
     });
 
     const observer = new IntersectionObserver((entries) => {
@@ -86,46 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slides.forEach(slide => observer.observe(slide));
-
-    let xDown = null;
-    let yDown = null;
-
-    slider.addEventListener('touchstart', handleTouchStart, false);
-    slider.addEventListener('touchmove', handleTouchMove, false);
-
-    function getTouches(evt) {
-        return evt.touches || evt.originalEvent.touches;
-    }
-
-    function handleTouchStart(evt) {
-        const firstTouch = getTouches(evt)[0];
-        xDown = firstTouch.clientX;
-        yDown = firstTouch.clientY;
-        isUserScrolling = true;
-    }
-
-    function handleTouchMove(evt) {
-        if (!xDown || !yDown) {
-            return;
-        }
-
-        const xUp = evt.touches[0].clientX;
-        const yUp = evt.touches[0].clientY;
-        const xDiff = xDown - xUp;
-        const yDiff = yDown - yUp;
-
-        if (Math.abs(xDiff) > Math.abs(yDiff)) {
-            if (xDiff > 0) {
-                scrollToSlide(slideIndex + 1);
-            } else {
-                scrollToSlide(slideIndex - 1);
-            }
-        }
-
-        xDown = null;
-        yDown = null;
-        setTimeout(() => {
-            isUserScrolling = false;
-        }, 500);
-    }
 });
