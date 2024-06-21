@@ -15,22 +15,26 @@ function showSlides(n) {
     dots[slideIndex].classList.add('active');
 }
 
-// Add hover effect to the images
-document.querySelectorAll('.slide img').forEach(img => {
-    img.addEventListener('mouseenter', () => img.classList.add('hover'));
-    img.addEventListener('mouseleave', () => img.classList.remove('hover'));
-});
-
-// Swipe functionality
-let startX = 0;
-let endX = 0;
+// Swiping functionality
+let startX;
 
 document.querySelector('.hero-slider').addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
 });
 
-document.querySelector('.hero-slider').addEventListener('touchend', (e) => {
-    endX = e.changedTouches[0].clientX;
-    if (startX > endX + 50) currentSlide(slideIndex + 2); // Swipe left
-    if (startX < endX - 50) currentSlide(slideIndex); // Swipe right
+document.querySelector('.hero-slider').addEventListener('touchmove', (e) => {
+    if (!startX) return;
+    let endX = e.touches[0].clientX;
+    let diffX = startX - endX;
+
+    if (Math.abs(diffX) > 50) { // Adjust the sensitivity
+        if (diffX > 0) {
+            // Swipe left
+            currentSlide(slideIndex + 1);
+        } else {
+            // Swipe right
+            currentSlide(slideIndex - 1);
+        }
+        startX = null; // Reset the start position
+    }
 });
