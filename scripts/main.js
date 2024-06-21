@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             const scrollLeft = slider.scrollLeft;
-            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+            const slideWidth = slides[0].clientWidth;
             const index = Math.round(scrollLeft / slideWidth);
             updateDots(index);
         }, 100); // Adjust delay as needed
@@ -87,10 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                // Swiping left
                 scrollToSlide([...slides].indexOf(document.elementFromPoint(xUp, yUp)) + 1);
             } else {
-                // Swiping right
                 scrollToSlide([...slides].indexOf(document.elementFromPoint(xUp, yUp)) - 1);
             }
         }
