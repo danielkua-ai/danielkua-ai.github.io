@@ -16,19 +16,17 @@ function showSlides(n) {
 }
 
 // Swipe functionality
-let startX, endX;
+let startX;
 
-document.querySelector('.hero-slider').addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX;
+document.getElementById('hero-slider').addEventListener('touchstart', function(event) {
+    startX = event.touches[0].clientX;
 });
 
-document.querySelector('.hero-slider').addEventListener('touchend', function(e) {
-    endX = e.changedTouches[0].clientX;
+document.getElementById('hero-slider').addEventListener('touchend', function(event) {
+    let endX = event.changedTouches[0].clientX;
     if (startX > endX + 50) {
-        // Swipe left
-        currentSlide(slideIndex + 1);
+        showSlides(slideIndex += 1);
     } else if (startX < endX - 50) {
-        // Swipe right
-        currentSlide(slideIndex - 1);
+        showSlides(slideIndex -= 1);
     }
 });
