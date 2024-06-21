@@ -128,6 +128,8 @@ nav ul li a {
 .slider-nav {
     text-align: center;
     margin: 20px 0;
+    position: relative;
+    height: 15px;
 }
 
 .slider-nav .dot {
@@ -137,23 +139,19 @@ nav ul li a {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-    overflow: hidden;
     position: relative;
     transition: background-color 0.3s;
 }
 
-.slider-nav .dot .fill {
+.slider-nav .fill {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    width: 0;
+    width: 15px;
     background-color: #717171;
-    transition: width 0.3s;
-}
-
-.slider-nav .dot.active .fill {
-    width: 100%;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
 }
 
 footer {

@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.hero-slider .slide');
     const dots = document.querySelectorAll('.slider-nav .dot');
+    const fill = document.querySelector('.slider-nav .fill');
 
     function setActiveDot(index) {
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[index].classList.add('active');
+        const activeDot = dots[index];
+        const fillPosition = activeDot.offsetLeft + activeDot.offsetWidth / 2 - fill.offsetWidth / 2;
+        fill.style.transform = `translateX(${fillPosition}px)`;
     }
 
     function scrollToSlide(index) {
