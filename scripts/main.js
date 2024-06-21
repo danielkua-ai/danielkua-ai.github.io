@@ -15,18 +15,32 @@ function showSlides(n) {
     dots[slideIndex].classList.add('active');
 }
 
-// Swipe functionality
+// Add swipe functionality
 let startX;
+let startY;
 
-document.getElementById('hero-slider').addEventListener('touchstart', function(event) {
-    startX = event.touches[0].clientX;
-});
+document.querySelector('.hero-slider').addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+}, false);
 
-document.getElementById('hero-slider').addEventListener('touchend', function(event) {
-    let endX = event.changedTouches[0].clientX;
-    if (startX > endX + 50) {
-        showSlides(slideIndex += 1);
-    } else if (startX < endX - 50) {
-        showSlides(slideIndex -= 1);
+document.querySelector('.hero-slider').addEventListener('touchmove', (e) => {
+    if (!startX || !startY) return;
+
+    let endX = e.touches[0].clientX;
+    let endY = e.touches[0].clientY;
+
+    let diffX = startX - endX;
+    let diffY = startY - endY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+            showSlides(slideIndex += 1);
+        } else {
+            showSlides(slideIndex -= 1);
+        }
     }
-});
+
+    startX = null;
+    startY = null;
+}, false);

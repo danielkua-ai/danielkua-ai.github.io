@@ -25,6 +25,7 @@ nav ul li a {
     text-decoration: none;
     color: black;
     font-weight: bold;
+    font-size: 1.2em;
 }
 
 .hero {
@@ -34,22 +35,22 @@ nav ul li a {
 
 .hero-slider {
     display: flex;
-    transition: transform 0.5s ease;
 }
 
 .slide {
     min-width: 100%;
-    transition: transform 0.5s ease, filter 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .slide img {
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.slide:hover img {
-    filter: brightness(0.7);
+.slide img:hover {
+    transform: scale(1.05);
 }
 
 .caption {
@@ -113,26 +114,5 @@ footer {
     background-color: white;
     padding: 20px 0;
     text-align: center;
-}
-
-@media (max-width: 768px) {
-    .caption h1 {
-        font-size: 1.5em;
-    }
-
-    .caption p {
-        font-size: 1em;
-    }
-
-    .learn-more-button {
-        padding: 8px 16px;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-    }
+    color: black;
 }
