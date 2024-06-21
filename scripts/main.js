@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
     let slideIndex = 0;
+    let isUserScrolling = false;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -21,20 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => scrollToSlide(index));
+        dot.addEventListener('click', () => {
+            isUserScrolling = true;
+            scrollToSlide(index);
+        });
     });
 
     slider.addEventListener('scroll', () => {
-        const scrollLeft = slider.scrollLeft;
-        const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
-        const index = Math.round(scrollLeft / slideWidth);
-        if (index !== slideIndex) {
-            updateDots(index);
-            slideIndex = index;
+        if (!isUserScrolling) {
+            const scrollLeft = slider.scrollLeft;
+            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+            const index = Math.round(scrollLeft / slideWidth);
+            if (index !== slideIndex) {
+                updateDots(index);
+                slideIndex = index;
+            }
+        }
+    });
+
+    slider.addEventListener('scrollend', () => {
+        if (!isUserScrolling) {
+            scrollToSlide(slideIndex);
         }
     });
 
     const observer = new IntersectionObserver((entries) => {
+        if (isUserScrolling) return;
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
@@ -63,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstTouch = getTouches(evt)[0];
         xDown = firstTouch.clientX;
         yDown = firstTouch.clientY;
+        isUserScrolling = true;
     }
 
     function handleTouchMove(evt) {
@@ -85,5 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         xDown = null;
         yDown = null;
+        isUserScrolling = false;
     }
 });
