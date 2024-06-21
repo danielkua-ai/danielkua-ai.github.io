@@ -75,7 +75,7 @@ nav ul li a {
     overflow: hidden;
     position: relative;
     margin: 0 10px; /* Adjust margin for left and right hints */
-    max-height: 70vh; /* Set max height for the slides */
+    max-height: 50vh; /* Set max height for the slides */
 }
 
 .slide img {
