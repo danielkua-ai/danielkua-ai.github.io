@@ -15,27 +15,20 @@ function showSlides(n) {
     dots[slideIndex].classList.add('active');
 }
 
-// Swiping functionality
-let touchStartX = 0;
-let touchEndX = 0;
+// Swipe functionality
+let startX, endX;
 
-function handleTouchStart(event) {
-    touchStartX = event.changedTouches[0].screenX;
-}
+document.querySelector('.hero-slider').addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+});
 
-function handleTouchMove(event) {
-    touchEndX = event.changedTouches[0].screenX;
-}
-
-function handleTouchEnd() {
-    if (touchEndX < touchStartX) {
-        slideIndex++;
-    } else if (touchEndX > touchStartX) {
-        slideIndex--;
+document.querySelector('.hero-slider').addEventListener('touchend', function(e) {
+    endX = e.changedTouches[0].clientX;
+    if (startX > endX + 50) {
+        // Swipe left
+        currentSlide(slideIndex + 1);
+    } else if (startX < endX - 50) {
+        // Swipe right
+        currentSlide(slideIndex - 1);
     }
-    showSlides(slideIndex);
-}
-
-document.querySelector('.hero-slider').addEventListener('touchstart', handleTouchStart, false);
-document.querySelector('.hero-slider').addEventListener('touchmove', handleTouchMove, false);
-document.querySelector('.hero-slider').addEventListener('touchend', handleTouchEnd, false);
+});
