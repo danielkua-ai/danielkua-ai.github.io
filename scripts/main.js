@@ -1,22 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
+let slideIndex = 1;
 
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-            dots[i].classList.toggle('active', i === index);
-        });
+function showSlides(n) {
+    let slides = document.getElementsByClassName("slide");
+    let dots = document.getElementsByClassName("dot");
+
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
     }
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    
+    slides[slideIndex-1].style.display = "flex";
+    dots[slideIndex-1].className += " active";
+}
 
-    dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-            currentSlideIndex = i;
-            showSlide(currentSlideIndex);
-        });
-    });
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
 
-    // Initialize the first slide
-    showSlide(currentSlideIndex);
-});
+// Initialize the first slide
+showSlides(slideIndex);
