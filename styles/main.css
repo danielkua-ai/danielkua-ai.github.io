@@ -47,6 +47,9 @@ header nav ul li a {
     overflow: hidden;
     text-align: center;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-slider {
@@ -79,6 +82,8 @@ header nav ul li a {
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 5px;
+    width: 80%;
+    text-align: center;
 }
 
 .hero-slider .slide .caption h2 {
