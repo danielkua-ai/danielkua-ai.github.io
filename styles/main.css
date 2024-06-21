@@ -34,19 +34,22 @@ nav ul li a {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100vw;
+    height: 60vh;
 }
 
 .slide {
-    flex: 0 0 100%;
+    flex: 0 0 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
     scroll-snap-align: start;
+    position: relative;
 }
 
 .slide img {
-    width: 100%;
+    width: 100vw;
     height: 60vh;
     object-fit: cover;
 }
