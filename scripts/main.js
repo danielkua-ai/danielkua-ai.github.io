@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function scrollToSlide(index) {
         if (index < 0 || index >= slides.length) return;
+        const direction = index > currentSlideIndex ? 'right' : 'left';
         slider.scrollTo({
             left: slides[index].offsetLeft,
             behavior: 'smooth'
@@ -24,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
+            const direction = index > currentSlideIndex ? 'right' : 'left';
             scrollToSlide(index);
+            updateDots(index, direction);
         });
     });
 
@@ -37,9 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrollLeft = slider.scrollLeft;
             const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
             const newIndex = Math.round(scrollLeft / slideWidth);
+            const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
 
             if (newIndex !== currentSlideIndex) {
-                updateDots(newIndex);
+                updateDots(newIndex, direction);
             }
 
             lastScrollLeft = scrollLeft;
@@ -50,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
-                updateDots(index);
+                const direction = index > currentSlideIndex ? 'right' : 'left';
+                updateDots(index, direction);
             }
         });
     }, {
