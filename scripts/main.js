@@ -1,26 +1,27 @@
-let slideIndex = 1;
+let currentIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
 
-function showSlides(n) {
-    let slides = document.getElementsByClassName("slide");
-    let dots = document.getElementsByClassName("dot");
-
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    
-    slides[slideIndex-1].style.display = "flex";
-    dots[slideIndex-1].className += " active";
+function showSlide(index) {
+    slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        dots[i].classList.remove('active');
+    });
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
 }
 
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        showSlide(index);
+        currentIndex = index;
+    });
+});
 
-// Initialize the first slide
-showSlides(slideIndex);
+// Remove automatic slide change
+// function autoSlide() {
+//     currentIndex = (currentIndex + 1) % slides.length;
+//     showSlide(currentIndex);
+// }
+
+// setInterval(autoSlide, 5000);
