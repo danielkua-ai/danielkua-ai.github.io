@@ -65,7 +65,7 @@ header nav ul li a {
 .hero-slider .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .hero-slider .slide .caption {
