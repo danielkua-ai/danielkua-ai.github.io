@@ -9,9 +9,8 @@ function showSlides(n) {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     slideIndex = (n + slides.length) % slides.length; // Ensure circular sliding
-    slides.forEach((slide, index) => {
-        slide.style.transform = `translateX(-${slideIndex * 100}%)`;
-    });
+    const container = document.querySelector('.hero-slider');
+    container.style.transform = `translateX(-${slideIndex * 100}%)`;
     dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === slideIndex);
     });
