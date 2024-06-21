@@ -8,7 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const activeDot = dots[index];
         const fillPosition = activeDot.offsetLeft + activeDot.offsetWidth / 2 - fill.offsetWidth / 2;
 
-        fill.style.transform = `translateX(${fillPosition}px)`;
+        if (direction === 'left') {
+            fill.style.transform = `translateX(${fillPosition + activeDot.offsetWidth}px)`;
+            requestAnimationFrame(() => {
+                fill.style.transition = 'transform 0.3s ease';
+                fill.style.transform = `translateX(${fillPosition}px)`;
+            });
+        } else {
+            fill.style.transform = `translateX(${fillPosition - activeDot.offsetWidth}px)`;
+            requestAnimationFrame(() => {
+                fill.style.transition = 'transform 0.3s ease';
+                fill.style.transform = `translateX(${fillPosition}px)`;
+            });
+        }
     }
 
     function scrollToSlide(index) {
