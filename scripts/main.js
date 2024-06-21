@@ -3,17 +3,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
     let slideIndex = 0;
+    let isUserScrolling = false;
+    let isScrolling;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
+            if (i === index) {
+                dot.querySelector('::before').style.width = '100%';
+            } else {
+                dot.querySelector('::before').style.width = '0';
+            }
+        });
+    }
+
+    function fillDots() {
+        const scrollLeft = slider.scrollLeft;
+        const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+        const progress = (scrollLeft % slideWidth) / slideWidth;
+        dots.forEach((dot, i) => {
+            if (i < Math.floor(scrollLeft / slideWidth)) {
+                dot.querySelector('::before').style.width = '100%';
+            } else if (i === Math.floor(scrollLeft / slideWidth)) {
+                dot.querySelector('::before').style.width = `${progress * 100}%`;
+            } else {
+                dot.querySelector('::before').style.width = '0';
+            }
         });
     }
 
     function scrollToSlide(index) {
         if (index < 0 || index >= slides.length) return;
         slider.scrollTo({
-            left: slides[index].offsetLeft - slider.offsetLeft,
+            left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
         updateDots(index);
@@ -21,20 +43,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => scrollToSlide(index));
+        dot.addEventListener('click', () => {
+            isUserScrolling = true;
+            scrollToSlide(index);
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                isUserScrolling = false;
+            }, 500);
+        });
     });
 
     slider.addEventListener('scroll', () => {
-        const scrollLeft = slider.scrollLeft;
-        const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
-        const index = Math.round(scrollLeft / slideWidth);
-        if (index !== slideIndex) {
+        if (isUserScrolling) return;
+
+        fillDots();
+
+        clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            const scrollLeft = slider.scrollLeft;
+            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+            const index = Math.round(scrollLeft / slideWidth);
             updateDots(index);
             slideIndex = index;
-        }
+        }, 100);
     });
 
     const observer = new IntersectionObserver((entries) => {
+        if (isUserScrolling) return;
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
@@ -63,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstTouch = getTouches(evt)[0];
         xDown = firstTouch.clientX;
         yDown = firstTouch.clientY;
+        isUserScrolling = true;
     }
 
     function handleTouchMove(evt) {
@@ -85,5 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         xDown = null;
         yDown = null;
+        setTimeout(() => {
+            isUserScrolling = false;
+        }, 500);
     }
 });

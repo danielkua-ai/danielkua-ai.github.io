@@ -79,12 +79,14 @@ nav ul li a {
     position: relative;
     margin: 0 10px; /* Adjust margin for left and right hints */
     max-height: 70vh; /* Set max height for the slides */
+    border-radius: 15px; /* Add rounded corners */
 }
 
 .slide img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Ensure the image covers the slide area without stretching */
+    border-radius: 15px; /* Add rounded corners to the images */
 }
 
 .caption {
@@ -135,12 +137,24 @@ nav ul li a {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-    transition: background-color 0.3s;
-    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: background-color 0.3s, width 0.3s;
 }
 
-.slider-nav .dot.active {
+.slider-nav .dot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
     background-color: #717171;
+    transition: width 0.3s;
+}
+
+.slider-nav .dot.active::before {
+    width: 100%;
 }
 
 footer {
