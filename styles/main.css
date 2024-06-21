@@ -36,6 +36,7 @@ nav ul li a {
 .hero-slider {
     display: flex;
     flex-direction: row;
+    transition: transform 0.5s ease;
 }
 
 .slide {

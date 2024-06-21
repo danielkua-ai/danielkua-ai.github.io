@@ -22,7 +22,7 @@ function showSlides(n) {
     dots[slideIndex].classList.add('active');
 }
 
-// Add horizontal scroll event listener for navigation
+// Add smooth horizontal scroll event listener for navigation
 let startX = 0;
 let endX = 0;
 window.addEventListener('touchstart', (e) => {
@@ -30,7 +30,16 @@ window.addEventListener('touchstart', (e) => {
 });
 window.addEventListener('touchend', (e) => {
     endX = e.changedTouches[0].clientX;
-    if (startX > endX) {
+    if (startX > endX + 50) { // Adjust the value for better sensitivity
+        currentSlide(slideIndex + 1);
+    } else if (startX < endX - 50) {
+        currentSlide(slideIndex - 1);
+    }
+});
+
+// Enable scrolling with mouse wheel or trackpad
+window.addEventListener('wheel', (e) => {
+    if (e.deltaY > 0) {
         currentSlide(slideIndex + 1);
     } else {
         currentSlide(slideIndex - 1);
