@@ -48,7 +48,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(80vw - 40px);
+    flex: 0 0 calc(60vw - 40px);
     display: flex;
     align-items: center;
     justify-content: center;
