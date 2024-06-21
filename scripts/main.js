@@ -22,16 +22,17 @@ function showSlides(n) {
     dots[slideIndex].classList.add('active');
 }
 
-// Add scroll event listener for navigation
-let lastScrollTop = 0;
-window.addEventListener('scroll', () => {
-    let st = window.pageYOffset || document.documentElement.scrollTop;
-    if (st > lastScrollTop) {
-        // Downscroll
+// Add horizontal scroll event listener for navigation
+let startX = 0;
+let endX = 0;
+window.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+});
+window.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    if (startX > endX) {
         currentSlide(slideIndex + 1);
     } else {
-        // Upscroll
         currentSlide(slideIndex - 1);
     }
-    lastScrollTop = st <= 0 ? 0 : st;
 });
