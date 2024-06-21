@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let slideIndex = 0;
     let previousSlideIndex = 0;
     let isUserScrolling = false;
+    let previousScrollLeft = 0;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (i < currentIndex) {
                 fill.style.width = '100%';
             } else if (i === currentIndex) {
-                const direction = currentIndex > previousSlideIndex ? 'right' : 'left';
+                const direction = scrollLeft > previousScrollLeft ? 'right' : 'left';
                 if (direction === 'right') {
                     fill.style.width = `${progress * 100}%`;
                 } else {
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         previousSlideIndex = currentIndex;
+        previousScrollLeft = scrollLeft;
     }
 
     function scrollToSlide(index) {
