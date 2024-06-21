@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const progress = (scrollLeft % slideWidth) / slideWidth;
         const currentIndex = Math.floor(scrollLeft / slideWidth);
         const direction = currentIndex > previousSlideIndex ? 'right' : 'left';
-        previousSlideIndex = currentIndex;
 
         dots.forEach((dot, i) => {
             const fill = dot.querySelector('.fill');
@@ -36,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 fill.style.width = '0';
             }
         });
+
+        previousSlideIndex = currentIndex;
     }
 
     function scrollToSlide(index) {
