@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
-    let isScrolling = false;
+    let isUserScrolling = false;
+    let timeout;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -21,17 +22,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            isScrolling = true;
+            isUserScrolling = true;
             scrollToSlide(index);
-            setTimeout(() => {
-                isScrolling = false;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                isUserScrolling = false;
             }, 500); // Wait for the scrolling to finish
         });
     });
 
-    const observer = new IntersectionObserver((entries) => {
-        if (isScrolling) return;
+    slider.addEventListener('scroll', () => {
+        if (isUserScrolling) return;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            const scrollLeft = slider.scrollLeft;
+            const slideWidth = slides[0].clientWidth;
+            const index = Math.round(scrollLeft / slideWidth);
+            updateDots(index);
+        }, 100); // Adjust delay as needed
+    });
 
+    const observer = new IntersectionObserver((entries) => {
+        if (isUserScrolling) return;
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
@@ -60,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstTouch = getTouches(evt)[0];
         xDown = firstTouch.clientX;
         yDown = firstTouch.clientY;
-        isScrolling = true;
+        isUserScrolling = true;
     }
 
     function handleTouchMove(evt) {
@@ -75,10 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                // Swiping left
                 scrollToSlide([...slides].indexOf(document.elementFromPoint(xUp, yUp)) + 1);
             } else {
-                // Swiping right
                 scrollToSlide([...slides].indexOf(document.elementFromPoint(xUp, yUp)) - 1);
             }
         }
@@ -89,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleTouchEnd() {
         setTimeout(() => {
-            isScrolling = false;
+            isUserScrolling = false;
         }, 500); // Wait for the scrolling to finish
     }
 });
