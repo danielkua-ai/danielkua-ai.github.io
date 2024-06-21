@@ -4,18 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const slider = document.querySelector('.hero-slider');
     let currentSlideIndex = 0;
     let lastScrollLeft = 0;
-    let isUserScrolling = false;
 
     function updateDots(index) {
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
         currentSlideIndex = index;
     }
 
     function scrollToSlide(index) {
         if (index < 0 || index >= slides.length) return;
-        const direction = index > currentSlideIndex ? 'right' : 'left';
         slider.scrollTo({
             left: slides[index].offsetLeft,
             behavior: 'smooth'
@@ -25,27 +22,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            const direction = index > currentSlideIndex ? 'right' : 'left';
             scrollToSlide(index);
-            updateDots(index, direction);
         });
     });
 
     let isScrolling;
     slider.addEventListener('scroll', () => {
-        if (isUserScrolling) return;
+        if (isScrolling) return;
 
         window.clearTimeout(isScrolling);
         isScrolling = setTimeout(() => {
             const scrollLeft = slider.scrollLeft;
             const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
             const newIndex = Math.round(scrollLeft / slideWidth);
-            const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
-
             if (newIndex !== currentSlideIndex) {
-                updateDots(newIndex, direction);
+                updateDots(newIndex);
             }
-
             lastScrollLeft = scrollLeft;
         }, 100);
     });
@@ -54,8 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
-                const direction = index > currentSlideIndex ? 'right' : 'left';
-                updateDots(index, direction);
+                updateDots(index);
             }
         });
     }, {
