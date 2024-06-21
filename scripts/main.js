@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
 
+    let slideIndex = 0;
+
     function updateDots(index) {
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
@@ -10,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function scrollToSlide(index) {
+        slideIndex = index;
         slider.scrollTo({
             left: slides[index].offsetLeft - slider.offsetLeft,
             behavior: 'smooth'
@@ -26,9 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.clearTimeout(isScrolling);
         isScrolling = setTimeout(() => {
             const scrollLeft = slider.scrollLeft;
-            const slideWidth = slides[0].clientWidth;
+            const slideWidth = slides[0].clientWidth + parseInt(getComputedStyle(slides[0]).marginRight);
             const index = Math.round(scrollLeft / slideWidth);
             updateDots(index);
+            slideIndex = index;
         }, 100);
     });
 
@@ -74,9 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                scrollToSlide(slideIndex + 1);
+                /* swipe left */
+                scrollToSlide(Math.min(slideIndex + 1, slides.length - 1));
             } else {
-                scrollToSlide(slideIndex - 1);
+                /* swipe right */
+                scrollToSlide(Math.max(slideIndex - 1, 0));
             }
         }
 
