@@ -39,12 +39,17 @@ nav ul li a {
 
 .slide {
     min-width: 100%;
+    transition: transform 0.5s ease, filter 0.3s ease;
 }
 
 .slide img {
     width: 100%;
     height: 80vh;
     object-fit: cover;
+}
+
+.slide:hover img {
+    filter: brightness(0.7); /* Adjust the brightness on hover */
 }
 
 .caption {
