@@ -26,17 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (i < Math.floor(scrollLeft / slideWidth)) {
                 fill.style.width = '100%';
             } else if (i === Math.floor(scrollLeft / slideWidth)) {
-                fill.style.width = `${progress * 100}%`;
+                fill.style.width = direction === 'right' ? `${progress * 100}%` : `${(1 - progress) * 100}%`;
             } else {
                 fill.style.width = '0';
             }
         });
-
-        if (direction === 'left') {
-            const progressIndex = Math.floor(scrollLeft / slideWidth);
-            const progressDot = dots[progressIndex].querySelector('.fill');
-            progressDot.style.width = `${(1 - progress) * 100}%`;
-        }
     }
 
     function scrollToSlide(index) {
