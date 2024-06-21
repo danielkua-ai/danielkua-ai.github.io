@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
     let previousScrollLeft = slider.scrollLeft;
+    let isScrollingRight = true;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -17,14 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const progress = (scrollLeft % slideWidth) / slideWidth;
         const currentIndex = Math.floor(scrollLeft / slideWidth);
-        const direction = scrollLeft > previousScrollLeft ? 'right' : 'left';
 
         dots.forEach((dot, i) => {
             const fill = dot.querySelector('.fill');
             if (i < currentIndex) {
                 fill.style.width = '100%';
             } else if (i === currentIndex) {
-                if (direction === 'right') {
+                if (isScrollingRight) {
                     fill.style.width = `${progress * 100}%`;
                 } else {
                     fill.style.width = `${(1 - progress) * 100}%`;
@@ -54,9 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slider.addEventListener('scroll', () => {
+        const scrollLeft = slider.scrollLeft;
+        isScrollingRight = scrollLeft > previousScrollLeft;
+        
         fillDots();
 
-        const scrollLeft = slider.scrollLeft;
         const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const index = Math.round(scrollLeft / slideWidth);
         updateDots(index);
