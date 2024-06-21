@@ -2,24 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
+    let lastScrollLeft = 0;
 
     function updateDots() {
         const scrollLeft = slider.scrollLeft;
-        const scrollWidth = slider.scrollWidth - slider.clientWidth;
-        const relativeScroll = scrollLeft / scrollWidth;
+        const slideWidth = slides[0].clientWidth;
+        const scrollIndex = Math.round(scrollLeft / slideWidth);
 
         dots.forEach((dot, index) => {
-            const dotPosition = index / (dots.length - 1);
-            const nextDotPosition = (index + 1) / (dots.length - 1);
-
-            if (relativeScroll >= dotPosition) {
-                if (relativeScroll < nextDotPosition) {
-                    dot.querySelector('.fill').style.width = `${((relativeScroll - dotPosition) / (nextDotPosition - dotPosition)) * 100}%`;
-                } else {
-                    dot.querySelector('.fill').style.width = `100%`;
-                }
+            if (index === scrollIndex) {
+                dot.querySelector('.fill').style.width = '100%';
             } else {
-                dot.querySelector('.fill').style.width = `0%`;
+                dot.querySelector('.fill').style.width = '0%';
             }
         });
     }
@@ -40,7 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slider.addEventListener('scroll', () => {
-        window.requestAnimationFrame(updateDots);
+        const scrollLeft = slider.scrollLeft;
+        const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
+        lastScrollLeft = scrollLeft;
+
+        window.requestAnimationFrame(() => {
+            updateDots();
+        });
     });
 
     let xDown = null;
