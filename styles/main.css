@@ -1,7 +1,5 @@
-body, html {
+body {
     margin: 0;
-    padding: 0;
-    height: 100%;
     font-family: Arial, sans-serif;
 }
 
@@ -15,7 +13,7 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Centers the nav items */
     align-items: center;
 }
 
@@ -107,12 +105,7 @@ nav ul li a {
 }
 
 footer {
-    background-color: #f1f1f1;
+    background-color: white; /* Change background to white */
     padding: 20px 0;
     text-align: center;
-    margin: 0;
-    padding-bottom: 0;
-    position: relative;
-    bottom: 0;
-    width: 100%;
 }
