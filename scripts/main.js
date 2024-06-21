@@ -105,3 +105,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); // Wait for the scrolling to finish
     }
 });
+
+
