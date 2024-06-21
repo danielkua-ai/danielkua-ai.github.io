@@ -35,7 +35,7 @@ nav ul li a {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     position: relative;
-    padding: 20px 0 20px 20px; /* Adjust padding on the left side */
+    padding: 20px;
     gap: 20px;
     scrollbar-width: none; /* Firefox */
 }
@@ -45,7 +45,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(60vw - 40px); /* Adjusting the width to 60% of viewport width */
+    flex: 0 0 calc(80vw - 40px); /* 80% of viewport width minus padding and gap */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,10 +55,6 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     overflow: hidden;
-}
-
-.slide:first-child {
-    margin-left: 20px; /* Adding margin to the first slide */
 }
 
 .slide:hover {
