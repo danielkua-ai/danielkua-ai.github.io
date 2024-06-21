@@ -10,11 +10,17 @@ body {
 header {
     background-color: white;
     padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #ddd;
 }
 
 header .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -47,7 +53,7 @@ nav ul li a {
 
 .hero-slider-container {
     flex: 1;
-    padding: 0 20px;
+    padding-top: 80px; /* Adjust this value to ensure there's space for the fixed header */
     overflow: hidden;
 }
 
@@ -128,7 +134,7 @@ nav ul li a {
     text-align: center;
     margin: 20px 0;
     position: relative;
-    height: 15px;
+    height: 30px; /* Increased height to accommodate the fill element */
 }
 
 .slider-nav .dot {
@@ -144,13 +150,14 @@ nav ul li a {
 
 .slider-nav .fill {
     position: absolute;
-    top: 0;
+    top: 0; /* Adjust the top position to place the fill element above the dots */
     left: 0;
     height: 15px;
     width: 15px;
     background-color: #717171;
     border-radius: 50%;
     transition: transform 0.3s ease;
+    z-index: 1; /* Ensure the fill is above the dot */
 }
 
 footer {
@@ -159,6 +166,7 @@ footer {
     text-align: center;
     font-size: 0.8em;
     width: 100%;
+    position: relative;
 }
 
 @media (max-width: 768px) {
