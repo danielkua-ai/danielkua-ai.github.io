@@ -49,13 +49,19 @@ nav ul li a {
     padding: 10px;
 }
 
+.hamburger {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
 .main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0 20px;
-    min-height: 0; /* Ensure it can handle overflow content */
+    min-height: 0;
 }
 
 .hero-slider-container {
@@ -186,10 +192,23 @@ footer {
     }
 
     nav ul {
-        display: flex;
+        display: none;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .hamburger {
+        display: block;
     }
 
     .caption h1 {
@@ -215,8 +234,8 @@ footer {
 }
 
 /* Add a clearfix hack to the footer for better layout */
-.footer::before,
-.footer::after {
+footer::before,
+footer::after {
     content: " ";
     display: table;
     clear: both;

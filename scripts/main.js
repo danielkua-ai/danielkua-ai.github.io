@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.getElementById('hamburger');
+    const navUl = document.querySelector('nav ul');
+
+    hamburger.addEventListener('click', function () {
+        navUl.classList.toggle('show');
+    });
+
+    // Existing code in your main.js file
     const slides = document.querySelectorAll('.hero-slider .slide');
     const dots = document.querySelectorAll('.slider-nav .dot');
     const fill = document.querySelector('.slider-nav .fill');
