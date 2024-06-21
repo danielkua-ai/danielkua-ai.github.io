@@ -65,7 +65,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(100% - 40px); /* Adjust width to fit within the container */
+    flex: 0 0 calc(80% - 40px); /* Adjust width to fit within the container */
     display: flex;
     align-items: center;
     justify-content: center;
