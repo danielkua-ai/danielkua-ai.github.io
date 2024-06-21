@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let slideIndex = 0;
     let previousSlideIndex = 0;
     let isUserScrolling = false;
-    let previousScrollLeft = 0;
+    let previousScrollLeft = slider.scrollLeft;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.classList.toggle('active', i === index);
             fill.style.width = i === index ? '100%' : '0';
         });
+        slideIndex = index;
     }
 
     function fillDots() {
