@@ -1,139 +1,87 @@
+/* General Styles */
 body {
-    font-family: 'Söhne', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: Arial, sans-serif;
     margin: 0;
-    line-height: 1.6;
-    background: #f4f4f4;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .container {
-    width: 90%;
-    margin: auto;
-    overflow: hidden;
+    width: 80%;
+    margin: 0 auto;
 }
 
+/* Header Styles */
 header {
     background: #fff;
     padding: 20px 0;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid #ddd;
 }
 
-header nav {
-    text-align: center;
-}
-
-header nav ul {
+nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    display: inline-block;
+    display: flex;
+    justify-content: space-around;
 }
 
-header nav ul li {
-    display: inline;
-    margin-left: 20px;
-}
-
-header nav ul li a {
+nav ul li a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
 }
 
+nav ul li a:hover {
+    color: #0073e6;
+}
+
+/* Hero Section Styles */
 .hero {
     position: relative;
-    height: 60vh; /* Adjust height to match the desired size */
-    overflow: hidden;
+    height: 80vh;
+    background: url('../images/hero-image1.jpg') no-repeat center center/cover;
 }
 
-.hero-slider {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-.hero-slider .slide {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.hero-slider .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.hero-slider .slide .caption {
+.hero .caption {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;
-    border-radius: 5px;
-    width: 80%;
+    border-radius: 8px;
     text-align: center;
+    color: #fff;
 }
 
-.hero-slider .slide .caption h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-    color: white;
+.hero .caption h1 {
+    margin: 0 0 10px;
+    font-size: 3rem;
 }
 
-.hero-slider .slide .caption p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: white;
+.hero .caption p {
+    margin: 0 0 20px;
 }
 
-.hero-slider .slide .caption .learn-more-button {
+.hero .learn-more-button {
     display: inline-block;
-    background: #fff;
-    color: #333;
     padding: 10px 20px;
+    background: #0073e6;
+    color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    transition: background 0.3s;
 }
 
-.hero-slider .slide.active {
-    opacity: 1;
+.hero .learn-more-button:hover {
+    background: #005bb5;
 }
 
-.slider-nav {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.slider-nav .dot {
-    height: 15px;
-    width: 15px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.slider-nav .dot.active {
-    background-color: #717171;
-}
-
+/* Footer Styles */
 footer {
-    background: #fff;
+    background: #f8f8f8;
     padding: 20px 0;
-    border-top: 1px solid #eaeaea;
     text-align: center;
-}
-
-footer p {
-    margin: 0;
+    border-top: 1px solid #ddd;
 }
 
 footer .social-icons {
@@ -143,4 +91,10 @@ footer .social-icons {
 footer .social-icons a {
     display: inline-block;
     margin: 0 10px;
+    text-decoration: none;
+}
+
+footer .social-icons img {
+    width: 24px;
+    height: 24px;
 }
