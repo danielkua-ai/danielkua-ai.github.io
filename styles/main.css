@@ -28,10 +28,6 @@ nav ul li a {
     font-weight: bold;
 }
 
-.hero-slider-container {
-    padding: 0 40px; /* Adjust the padding as needed */
-}
-
 .hero-slider {
     display: flex;
     overflow-x: auto;
@@ -61,11 +57,7 @@ nav ul li a {
 }
 
 .slide:first-child {
-    margin-left: 0; /* Reset margin for the first slide */
-}
-
-.slide:last-child {
-    margin-right: 0; /* Reset margin for the last slide */
+    margin-left: 20px; /* Adding margin to the first slide */
 }
 
 .slide:hover {
@@ -74,7 +66,7 @@ nav ul li a {
 
 .slide img {
     width: 100%;
-    height: auto; /* Maintain original image aspect ratio */
+    height: 50vh; /* Adjust height as needed */
     object-fit: cover;
     border-radius: 20px;
 }
