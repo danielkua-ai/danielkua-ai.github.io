@@ -34,6 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
             updateDots(index);
             currentSlideIndex = index;
         }, 100);
+
+        // Real-time dot updating
+        const scrollLeft = slider.scrollLeft;
+        const totalScrollWidth = slider.scrollWidth - slider.clientWidth;
+        const relativeScroll = scrollLeft / totalScrollWidth;
+        const dotIndex = Math.round(relativeScroll * (dots.length - 1));
+        updateDots(dotIndex);
     });
 
     const observer = new IntersectionObserver((entries) => {
