@@ -1,25 +1,7 @@
-let slideIndex = 0;
-
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
-    const observerOptions = {
-        root: document.querySelector('.hero-slider'),
-        threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                slideIndex = [...slides].indexOf(entry.target);
-                updateDots(slideIndex);
-            }
-        });
-    }, observerOptions);
-
-    slides.forEach(slide => {
-        observer.observe(slide);
-    });
+    const slider = document.querySelector('.hero-slider');
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -27,54 +9,48 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     }
 
-    document.querySelector('.hero-slider').addEventListener('scroll', debounce(handleScroll, 200));
-
-    function handleScroll() {
-        const slider = document.querySelector('.hero-slider');
-        const slideWidth = slider.offsetWidth;
-        const scrollLeft = slider.scrollLeft;
-        const newIndex = Math.round(scrollLeft / slideWidth);
-        if (newIndex !== slideIndex) {
-            slideIndex = newIndex;
-            updateDots(slideIndex);
-        }
-    }
-
-    function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        slideIndex = (n + slides.length) % slides.length; // Ensure circular sliding
-        const container = document.querySelector('.hero-slider');
-        container.scrollTo({
-            left: slides[slideIndex].offsetLeft,
+    function scrollToSlide(index) {
+        slider.scrollTo({
+            left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
-        updateDots(slideIndex);
+        updateDots(index);
     }
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => currentSlide(index));
+        dot.addEventListener('click', () => scrollToSlide(index));
     });
 
-    document.querySelector('.hero-slider').addEventListener('touchstart', handleTouchStart, false);
-    document.querySelector('.hero-slider').addEventListener('touchmove', handleTouchMove, false);
+    let isScrolling;
+    slider.addEventListener('scroll', () => {
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            const scrollLeft = slider.scrollLeft;
+            const slideWidth = slides[0].clientWidth;
+            const index = Math.round(scrollLeft / slideWidth);
+            updateDots(index);
+        }, 100);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = [...slides].indexOf(entry.target);
+                updateDots(index);
+            }
+        });
+    }, {
+        root: slider,
+        threshold: 0.5
+    });
+
+    slides.forEach(slide => observer.observe(slide));
 
     let xDown = null;
     let yDown = null;
+
+    slider.addEventListener('touchstart', handleTouchStart, false);
+    slider.addEventListener('touchmove', handleTouchMove, false);
 
     function getTouches(evt) {
         return evt.touches || evt.originalEvent.touches;
@@ -93,15 +69,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         const xUp = evt.touches[0].clientX;
         const yUp = evt.touches[0].clientY;
-
         const xDiff = xDown - xUp;
         const yDiff = yDown - yUp;
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                showSlides(slideIndex + 1);
+                scrollToSlide(slideIndex + 1);
             } else {
-                showSlides(slideIndex - 1);
+                scrollToSlide(slideIndex - 1);
             }
         }
 
