@@ -1,27 +1,16 @@
-let currentIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
+let slideIndex = 0;
+showSlides(slideIndex);
 
-function showSlide(index) {
-    slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        dots[i].classList.remove('active');
-    });
-    slides[index].classList.add('active');
-    dots[index].classList.add('active');
+function currentSlide(n) {
+    showSlides(slideIndex = n - 1);
 }
 
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        showSlide(index);
-        currentIndex = index;
-    });
-});
-
-// Remove automatic slide change
-// function autoSlide() {
-//     currentIndex = (currentIndex + 1) % slides.length;
-//     showSlide(currentIndex);
-// }
-
-// setInterval(autoSlide, 5000);
+function showSlides(n) {
+    let slides = document.querySelectorAll('.slide');
+    let dots = document.querySelectorAll('.dot');
+    if (n >= slides.length) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
+    slides.forEach(slide => slide.style.transform = `translateX(-${slideIndex * 100}%)`);
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[slideIndex].classList.add('active');
+}
