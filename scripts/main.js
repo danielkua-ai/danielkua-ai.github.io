@@ -1,85 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const slider = document.querySelector('.hero-slider');
-    let lastScrollLeft = 0;
+document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.hero-slider .slide');
+    const dots = document.querySelectorAll('.slider-nav .dot');
 
-    function updateDots() {
-        const scrollLeft = slider.scrollLeft;
-        const slideWidth = slides[0].clientWidth;
-        const scrollIndex = Math.round(scrollLeft / slideWidth);
-        const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
-
-        dots.forEach((dot, index) => {
-            const fill = dot.querySelector('.fill');
-            if (index < scrollIndex) {
-                fill.style.width = '100%';
-            } else if (index === scrollIndex) {
-                const progress = (scrollLeft % slideWidth) / slideWidth * 100;
-                fill.style.width = `${progress}%`;
-                fill.style.transformOrigin = direction === 'right' ? 'left' : 'right';
-            } else {
-                fill.style.width = '0%';
-            }
-        });
-
-        lastScrollLeft = scrollLeft;
+    function setActiveDot(index) {
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
     }
 
     function scrollToSlide(index) {
-        const slideWidth = slides[0].clientWidth;
-        slider.scrollTo({
-            left: slideWidth * index,
-            behavior: 'smooth'
-        });
-        updateDots();
+        const slide = slides[index];
+        slide.scrollIntoView({ behavior: 'smooth' });
     }
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             scrollToSlide(index);
+            setActiveDot(index);
         });
     });
 
-    slider.addEventListener('scroll', () => {
-        window.requestAnimationFrame(updateDots);
+    document.querySelector('.hero-slider').addEventListener('scroll', () => {
+        let index = Math.round(document.querySelector('.hero-slider').scrollLeft / document.querySelector('.hero-slider').offsetWidth);
+        setActiveDot(index);
     });
 
-    let xDown = null;
-    let yDown = null;
-
-    slider.addEventListener('touchstart', handleTouchStart, false);
-    slider.addEventListener('touchmove', handleTouchMove, false);
-
-    function getTouches(evt) {
-        return evt.touches || evt.originalEvent.touches;
-    }
-
-    function handleTouchStart(evt) {
-        const firstTouch = getTouches(evt)[0];
-        xDown = firstTouch.clientX;
-        yDown = firstTouch.clientY;
-    }
-
-    function handleTouchMove(evt) {
-        if (!xDown || !yDown) {
-            return;
-        }
-
-        const xUp = evt.touches[0].clientX;
-        const yUp = evt.touches[0].clientY;
-        const xDiff = xDown - xUp;
-        const yDiff = yDown - yUp;
-
-        if (Math.abs(xDiff) > Math.abs(yDiff)) {
-            if (xDiff > 0) {
-                scrollToSlide(Math.min(slides.length - 1, Math.round(slider.scrollLeft / slides[0].clientWidth) + 1));
-            } else {
-                scrollToSlide(Math.max(0, Math.round(slider.scrollLeft / slides[0].clientWidth) - 1));
-            }
-        }
-
-        xDown = null;
-        yDown = null;
-    }
+    // Initialize the first dot as active
+    setActiveDot(0);
 });
