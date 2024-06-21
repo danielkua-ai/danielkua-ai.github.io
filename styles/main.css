@@ -137,23 +137,12 @@ nav ul li a {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
-    overflow: hidden;
-    position: relative;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.slider-nav .dot .fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
+.slider-nav .dot.active {
     background-color: #717171;
-    transition: width 0.3s;
-}
-
-.slider-nav .dot.active .fill {
-    width: 100%;
 }
 
 footer {
