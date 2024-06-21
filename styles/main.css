@@ -13,7 +13,7 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Centers the nav items */
+    justify-content: center;
     align-items: center;
 }
 
@@ -43,15 +43,15 @@ nav ul li a {
 
 .slide img {
     width: 80%;
-    height: 60vh; /* Adjust the height */
+    height: 60vh;
     object-fit: cover;
     margin: 0 auto;
     display: block;
     border-radius: 20px;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
-.slide img.hover {
+.slide img:hover, .slide img.hover {
     transform: scale(1.05);
 }
 
@@ -122,7 +122,7 @@ footer {
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .slide img {
-        height: 50vh; /* Smaller height for tablets */
+        height: 50vh;
     }
     
     .caption h1 {
@@ -134,13 +134,13 @@ footer {
     }
     
     .slider-nav {
-        bottom: -20px; /* Adjust position if necessary */
+        bottom: -20px;
     }
 }
 
 @media (max-width: 768px) {
     .slide img {
-        height: 40vh; /* Smaller height for mobile devices */
+        height: 40vh;
     }
     
     .caption h1 {
@@ -152,6 +152,6 @@ footer {
     }
     
     .slider-nav {
-        bottom: -10px; /* Adjust position if necessary */
+        bottom: -10px;
     }
 }

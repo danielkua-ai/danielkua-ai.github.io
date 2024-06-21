@@ -27,14 +27,22 @@ document.querySelector('.hero-slider').addEventListener('touchmove', (e) => {
     let endX = e.touches[0].clientX;
     let diffX = startX - endX;
 
-    if (Math.abs(diffX) > 50) { // Adjust the sensitivity
+    if (Math.abs(diffX) > 50) {
         if (diffX > 0) {
-            // Swipe left
             currentSlide(slideIndex + 1);
         } else {
-            // Swipe right
             currentSlide(slideIndex - 1);
         }
-        startX = null; // Reset the start position
+        startX = null;
     }
+});
+
+// Add hover effect for touch devices
+document.querySelectorAll('.slide img').forEach(img => {
+    img.addEventListener('touchstart', () => {
+        img.classList.add('hover');
+    });
+    img.addEventListener('touchend', () => {
+        img.classList.remove('hover');
+    });
 });
