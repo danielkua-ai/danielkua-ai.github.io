@@ -48,7 +48,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(80vw - 40px); /* Adjusting the width to 60% of viewport width */
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,23 +58,18 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     overflow: hidden;
-}
-
-.slide:first-child {
-    margin-left: 0; /* Reset margin for the first slide */
-}
-
-.slide:last-child {
-    margin-right: 0; /* Reset margin for the last slide */
+    padding: 10px; /* Add padding to ensure space for border expansion */
+    background-color: white; /* Ensure background color is set to avoid visual issues */
 }
 
 .slide:hover {
     transform: scale(1.05);
+    z-index: 1; /* Ensure the hovered slide appears above others */
 }
 
 .slide img {
     width: 100%;
-    height: 50vh;
+    height: auto; /* Maintain original image aspect ratio */
     object-fit: cover;
     border-radius: 20px;
 }
