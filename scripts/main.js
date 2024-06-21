@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slider.addEventListener('scroll', () => {
         const scrollLeft = slider.scrollLeft;
-        const slideWidth = slides[0].clientWidth;
+        const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const index = Math.round(scrollLeft / slideWidth);
         if (index !== slideIndex) {
             updateDots(index);
