@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
+    let currentSlideIndex = 0;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -10,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function scrollToSlide(index) {
+        if (index < 0 || index >= slides.length) return;
         slider.scrollTo({
             left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
         updateDots(index);
+        currentSlideIndex = index;
     }
 
     dots.forEach((dot, index) => {
@@ -29,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const slideWidth = slides[0].clientWidth;
             const index = Math.round(scrollLeft / slideWidth);
             updateDots(index);
+            currentSlideIndex = index;
         }, 100);
     });
 
@@ -37,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
                 updateDots(index);
+                currentSlideIndex = index;
             }
         });
     }, {
@@ -74,9 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                scrollToSlide(slideIndex + 1);
+                // Scrolled left
+                scrollToSlide(currentSlideIndex + 1);
             } else {
-                scrollToSlide(slideIndex - 1);
+                // Scrolled right
+                scrollToSlide(currentSlideIndex - 1);
             }
         }
 
