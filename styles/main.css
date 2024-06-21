@@ -42,8 +42,8 @@ nav ul li a {
 }
 
 .slide img {
-    width: 90%;
-    height: 70vh;
+    width: 80%;
+    height: 60vh; /* Adjust the height */
     object-fit: cover;
     margin: 0 auto;
     display: block;
