@@ -41,17 +41,17 @@ document.querySelector('.hero-slider').addEventListener('touchmove', e => {
     }
 });
 
-// Add scroll event listener for desktop
+// Adjust scroll behavior
+let lastScrollTop = 0;
+
 window.addEventListener('scroll', () => {
-    let slides = document.querySelectorAll('.slide');
-    let scrollPos = window.scrollY;
-    let viewportHeight = window.innerHeight;
-
-    slides.forEach((slide, index) => {
-        let slidePos = slide.getBoundingClientRect().top + scrollPos;
-
-        if (scrollPos + viewportHeight / 2 > slidePos) {
-            currentSlide(index);
-        }
-    });
+    let st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > lastScrollTop) {
+        // Downscroll
+        currentSlide(slideIndex + 1);
+    } else {
+        // Upscroll
+        currentSlide(slideIndex - 1);
+    }
+    lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
 });

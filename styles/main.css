@@ -30,6 +30,7 @@ nav ul li a {
 .hero {
     position: relative;
     overflow: hidden;
+    padding: 20px;
 }
 
 .hero-slider {
