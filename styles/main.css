@@ -34,24 +34,22 @@ nav ul li a {
 
 .hero-slider {
     display: flex;
-    transition: transform 0.5s ease;
 }
 
 .slide {
     min-width: 100%;
+    transition: transform 0.5s ease;
 }
 
 .slide img {
-    width: 80%;
-    height: 60vh;
+    width: 100%;
+    height: 70vh;
     object-fit: cover;
-    margin: 0 auto;
-    display: block;
-    border-radius: 20px;
-    transition: transform 0.3s ease;
+    border-radius: 20px; /* Rounded corners */
+    transition: transform 0.5s ease;
 }
 
-.slide img:hover, .slide img.hover {
+.slide img:hover {
     transform: scale(1.05);
 }
 
@@ -92,11 +90,10 @@ nav ul li a {
 
 .slider-nav {
     text-align: center;
-    position: relative;
-    bottom: -30px;
+    position: absolute;
+    bottom: -30px; /* Position dots below the image */
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 10px;
 }
 
 .slider-nav .dot {
@@ -119,39 +116,8 @@ footer {
     text-align: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-    .slide img {
-        height: 50vh;
-    }
-    
-    .caption h1 {
-        font-size: 2em;
-    }
-    
-    .caption p {
-        font-size: 1em;
-    }
-    
-    .slider-nav {
-        bottom: -20px;
-    }
-}
-
 @media (max-width: 768px) {
     .slide img {
-        height: 40vh;
-    }
-    
-    .caption h1 {
-        font-size: 1.5em;
-    }
-    
-    .caption p {
-        font-size: 0.9em;
-    }
-    
-    .slider-nav {
-        bottom: -10px;
+        height: 50vh; /* Adjust height for smaller devices */
     }
 }

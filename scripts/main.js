@@ -15,34 +15,43 @@ function showSlides(n) {
     dots[slideIndex].classList.add('active');
 }
 
-// Swiping functionality
-let startX;
+// Add touch event listeners for swipe
+let startX, startY;
 
-document.querySelector('.hero-slider').addEventListener('touchstart', (e) => {
+document.querySelector('.hero-slider').addEventListener('touchstart', e => {
     startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
 });
 
-document.querySelector('.hero-slider').addEventListener('touchmove', (e) => {
-    if (!startX) return;
-    let endX = e.touches[0].clientX;
-    let diffX = startX - endX;
+document.querySelector('.hero-slider').addEventListener('touchmove', e => {
+    if (!startX || !startY) return;
 
-    if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-            currentSlide(slideIndex + 1);
-        } else {
+    let diffX = e.touches[0].clientX - startX;
+    let diffY = e.touches[0].clientY - startY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // Horizontal swipe
+        if (diffX > 50) {
             currentSlide(slideIndex - 1);
+        } else if (diffX < -50) {
+            currentSlide(slideIndex + 1);
         }
-        startX = null;
+        startX = null; // Reset startX after a swipe
+        startY = null; // Reset startY after a swipe
     }
 });
 
-// Add hover effect for touch devices
-document.querySelectorAll('.slide img').forEach(img => {
-    img.addEventListener('touchstart', () => {
-        img.classList.add('hover');
-    });
-    img.addEventListener('touchend', () => {
-        img.classList.remove('hover');
+// Add scroll event listener for desktop
+window.addEventListener('scroll', () => {
+    let slides = document.querySelectorAll('.slide');
+    let scrollPos = window.scrollY;
+    let viewportHeight = window.innerHeight;
+
+    slides.forEach((slide, index) => {
+        let slidePos = slide.getBoundingClientRect().top + scrollPos;
+
+        if (scrollPos + viewportHeight / 2 > slidePos) {
+            currentSlide(index);
+        }
     });
 });
