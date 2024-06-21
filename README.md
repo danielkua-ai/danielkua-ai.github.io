@@ -1,1 +1,1 @@
-# danielkua-ai.github.io
+danielkua-ai.github.io
