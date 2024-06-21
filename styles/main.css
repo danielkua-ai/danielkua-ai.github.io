@@ -58,7 +58,7 @@ nav ul li a {
 }
 
 .slide:first-child {
-    margin-left: 20px; /* Adding margin to the first slide */
+    margin-left: 100px; /* Adding margin to the first slide */
 }
 
 .slide:hover {
