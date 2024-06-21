@@ -129,7 +129,7 @@ nav ul li a {
     text-align: center;
     margin: 20px 0;
     position: relative;
-    height: 15px;
+    height: 30px; /* Increased height to accommodate the fill element */
 }
 
 .slider-nav .dot {
@@ -145,7 +145,7 @@ nav ul li a {
 
 .slider-nav .fill {
     position: absolute;
-    top: 0;
+    top: 25px; /* Adjust the top position to place the fill element under the dots */
     left: 0;
     height: 15px;
     width: 15px;
