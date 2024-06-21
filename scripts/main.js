@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function setActiveDot(index, direction) {
         const activeDot = dots[index];
         const fillPosition = activeDot.offsetLeft + activeDot.offsetWidth / 2 - fill.offsetWidth / 2;
-        
-        if (direction === 'right') {
+
+        if (direction === 'left') {
             fill.style.transform = `translateX(${fillPosition + activeDot.offsetWidth}px)`;
             requestAnimationFrame(() => {
                 fill.style.transition = 'transform 0.3s ease';
