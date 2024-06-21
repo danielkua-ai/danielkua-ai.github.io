@@ -48,12 +48,17 @@ nav ul li a {
     padding: 10px;
 }
 
-.hero-slider-container {
-    padding: 0 20px;
-    overflow: hidden;
+.main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding: 0 20px;
+    min-height: 0; /* Ensure the flex container can handle overflowing content */
+}
+
+.hero-slider-container {
+    overflow: hidden;
 }
 
 .hero-slider {
@@ -65,7 +70,6 @@ nav ul li a {
     position: relative;
     gap: 20px;
     scrollbar-width: none;
-    padding: 0 20px;
 }
 
 .hero-slider::-webkit-scrollbar {
@@ -81,7 +85,6 @@ nav ul li a {
     position: relative;
     transition: transform 0.3s ease;
     overflow: hidden;
-    position: relative;
     margin: 0 10px;
     max-height: 70vh;
     border-radius: 15px;
