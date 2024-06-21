@@ -10,8 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dots.forEach((dot, index) => {
             const dotPosition = index / (dots.length - 1);
+            const nextDotPosition = (index + 1) / (dots.length - 1);
+
             if (relativeScroll >= dotPosition) {
-                dot.querySelector('.fill').style.width = `${Math.min(1, (relativeScroll - dotPosition) * dots.length) * 100}%`;
+                if (relativeScroll < nextDotPosition) {
+                    dot.querySelector('.fill').style.width = `${((relativeScroll - dotPosition) / (nextDotPosition - dotPosition)) * 100}%`;
+                } else {
+                    dot.querySelector('.fill').style.width = `100%`;
+                }
             } else {
                 dot.querySelector('.fill').style.width = `0%`;
             }
