@@ -45,7 +45,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(80vw - 40px); /* 80% of viewport width minus padding and gap */
+    flex: 0 0 calc(100vw - 40px); /* 80% of viewport width minus padding and gap */
     display: flex;
     align-items: center;
     justify-content: center;
