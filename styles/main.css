@@ -7,6 +7,20 @@ body {
 header {
     background-color: white;
     padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header .logo img {
+    height: 40px;
 }
 
 nav ul {
@@ -26,10 +40,11 @@ nav ul li a {
     text-decoration: none;
     color: black;
     font-weight: bold;
+    padding: 10px;
 }
 
 .hero-slider-container {
-    padding: 0 40px;
+    padding: 0;
 }
 
 .hero-slider {
@@ -48,7 +63,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(60vw - 40px);
+    flex: 0 0 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,27 +71,14 @@ nav ul li a {
     position: relative;
     transition: transform 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
     overflow: hidden;
-}
-
-.slide:first-child {
-    margin-left: 0;
-}
-
-.slide:last-child {
-    margin-right: 0;
-}
-
-.slide:hover {
-    transform: scale(1.05);
+    position: relative;
 }
 
 .slide img {
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 20px;
 }
 
 .caption {
