@@ -2,61 +2,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
-    let currentSlideIndex = 0;
+    let lastScrollLeft = 0;
 
-    function updateDots(index) {
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
+    function updateDots() {
+        const scrollLeft = slider.scrollLeft;
+        const scrollWidth = slider.scrollWidth - slider.clientWidth;
+        const relativeScroll = scrollLeft / scrollWidth;
+
+        const activeIndex = Math.round(relativeScroll * (dots.length - 1));
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === activeIndex);
         });
     }
 
     function scrollToSlide(index) {
-        if (index < 0 || index >= slides.length) return;
+        const slideWidth = slides[0].clientWidth;
         slider.scrollTo({
-            left: slides[index].offsetLeft,
+            left: slideWidth * index,
             behavior: 'smooth'
         });
-        updateDots(index);
-        currentSlideIndex = index;
+        updateDots();
     }
 
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => scrollToSlide(index));
-    });
-
-    let isScrolling;
-    slider.addEventListener('scroll', () => {
-        window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            const scrollLeft = slider.scrollLeft;
-            const slideWidth = slides[0].clientWidth;
-            const index = Math.round(scrollLeft / slideWidth);
-            updateDots(index);
-            currentSlideIndex = index;
-        }, 100);
-
-        // Real-time dot updating
-        const scrollLeft = slider.scrollLeft;
-        const totalScrollWidth = slider.scrollWidth - slider.clientWidth;
-        const relativeScroll = scrollLeft / totalScrollWidth;
-        const dotIndex = Math.round(relativeScroll * (dots.length - 1));
-        updateDots(dotIndex);
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const index = [...slides].indexOf(entry.target);
-                updateDots(index);
-                currentSlideIndex = index;
-            }
+        dot.addEventListener('click', () => {
+            scrollToSlide(index);
         });
-    }, {
-        root: slider,
-        threshold: 0.5
     });
 
-    slides.forEach(slide => observer.observe(slide));
+    slider.addEventListener('scroll', () => {
+        window.requestAnimationFrame(updateDots);
+    });
 
     let xDown = null;
     let yDown = null;
@@ -86,11 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                // Scrolled left
-                scrollToSlide(currentSlideIndex + 1);
+                scrollToSlide(Math.min(slides.length - 1, Math.round(slider.scrollLeft / slides[0].clientWidth) + 1));
             } else {
-                // Scrolled right
-                scrollToSlide(currentSlideIndex - 1);
+                scrollToSlide(Math.max(0, Math.round(slider.scrollLeft / slides[0].clientWidth) - 1));
             }
         }
 
