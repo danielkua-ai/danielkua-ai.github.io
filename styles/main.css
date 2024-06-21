@@ -1,7 +1,6 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    padding: 0 15px;
     overflow-x: hidden;
 }
 
@@ -29,35 +28,27 @@ nav ul li a {
     font-weight: bold;
 }
 
-.hero {
-    position: relative;
-    overflow-x: auto;
-    white-space: nowrap;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
 .hero-slider {
-    display: inline-flex;
-    white-space: nowrap;
-    transition: transform 0.5s ease;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
 .slide {
-    display: inline-block;
-    min-width: 100%;
-    transition: transform 0.5s ease;
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    scroll-snap-align: start;
 }
 
 .slide img {
     width: 100%;
     height: 60vh;
     object-fit: cover;
-    border-radius: 20px;
 }
 
 .caption {
@@ -70,6 +61,7 @@ nav ul li a {
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 10px;
+    width: 80%;
 }
 
 .caption h1 {

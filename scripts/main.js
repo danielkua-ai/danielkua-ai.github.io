@@ -10,7 +10,7 @@ function showSlides(n) {
     const dots = document.querySelectorAll('.dot');
     slideIndex = (n + slides.length) % slides.length; // Ensure circular sliding
     const container = document.querySelector('.hero-slider');
-    container.style.transform = `translateX(-${slideIndex * 100}%)`;
+    container.scrollLeft = slides[slideIndex].offsetLeft;
     dots.forEach((dot, index) => {
         dot.classList.toggle('active', index === slideIndex);
     });
