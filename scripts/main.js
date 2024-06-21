@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
     let slideIndex = 0;
-    let isScrolling = false;
+    let isScrolling;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -23,17 +23,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            isScrolling = true;
             scrollToSlide(index);
-            setTimeout(() => {
-                isScrolling = false;
-            }, 500); // Wait for the scrolling to finish
         });
     });
 
-    const observer = new IntersectionObserver((entries) => {
-        if (isScrolling) return;
+    slider.addEventListener('scroll', () => {
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            const scrollLeft = slider.scrollLeft;
+            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+            const index = Math.round(scrollLeft / slideWidth);
+            if (index !== slideIndex) {
+                updateDots(index);
+                slideIndex = index;
+            }
+        }, 66);
+    });
 
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
@@ -62,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstTouch = getTouches(evt)[0];
         xDown = firstTouch.clientX;
         yDown = firstTouch.clientY;
-        isScrolling = true;
     }
 
     function handleTouchMove(evt) {
@@ -85,8 +91,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
         xDown = null;
         yDown = null;
-        setTimeout(() => {
-            isScrolling = false;
-        }, 500); // Wait for the scrolling to finish
     }
 });
