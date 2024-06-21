@@ -145,7 +145,7 @@ nav ul li a {
 
 .slider-nav .fill {
     position: absolute;
-    top: 0;
+    top: -15px; /* Adjust the top position to place the fill element above the dots */
     left: 0;
     height: 15px;
     width: 15px;
