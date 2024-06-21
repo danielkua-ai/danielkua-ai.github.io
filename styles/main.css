@@ -14,7 +14,7 @@ header {
 
 header .container {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Center the navigation items */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -46,7 +46,7 @@ nav ul li a {
 }
 
 .hero-slider-container {
-    padding: 0 20px;
+    padding: 0 20px; /* Adjust padding for left and right hints */
     overflow: hidden;
     flex: 1;
 }
@@ -60,7 +60,7 @@ nav ul li a {
     position: relative;
     gap: 20px;
     scrollbar-width: none;
-    padding: 0 20px;
+    padding: 0 20px; /* Adjust padding to show parts of adjacent slides */
 }
 
 .hero-slider::-webkit-scrollbar {
@@ -68,7 +68,7 @@ nav ul li a {
 }
 
 .slide {
-    flex: 0 0 calc(100% - 40px);
+    flex: 0 0 calc(100% - 40px); /* Adjust width to fit within the container */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,16 +77,16 @@ nav ul li a {
     transition: transform 0.3s ease;
     overflow: hidden;
     position: relative;
-    margin: 0 10px;
-    max-height: 70vh;
-    border-radius: 15px;
+    margin: 0 10px; /* Adjust margin for left and right hints */
+    max-height: 70vh; /* Set max height for the slides */
+    border-radius: 15px; /* Add rounded corners */
 }
 
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
+    object-fit: cover; /* Ensure the image covers the slide area without stretching */
+    border-radius: 15px; /* Add rounded corners to the images */
 }
 
 .caption {
@@ -158,9 +158,9 @@ nav ul li a {
 
 footer {
     background-color: white;
-    padding: 10px 0;
+    padding: 10px 0; /* Adjusted padding */
     text-align: center;
-    font-size: 0.8em;
+    font-size: 0.8em; /* Adjust font size */
 }
 
 @media (max-width: 768px) {

@@ -2,48 +2,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
+    let currentSlideIndex = 0;
     let lastScrollLeft = 0;
 
-    function updateDots() {
-        const scrollLeft = slider.scrollLeft;
-        const slideWidth = slides[0].clientWidth;
-        const scrollIndex = Math.round(scrollLeft / slideWidth);
-        const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
-
-        dots.forEach((dot, index) => {
+    function updateDots(index, direction) {
+        dots.forEach((dot, i) => {
             const fill = dot.querySelector('.fill');
-            if (index < scrollIndex) {
-                fill.style.width = '100%';
-            } else if (index === scrollIndex) {
-                const progress = (scrollLeft % slideWidth) / slideWidth * 100;
-                fill.style.width = `${progress}%`;
-                fill.style.transformOrigin = direction === 'right' ? 'left' : 'right';
+            if (direction === 'right') {
+                fill.style.width = i === index ? '100%' : '0';
             } else {
-                fill.style.width = '0%';
+                fill.style.width = i === index ? '100%' : '0';
             }
+            dot.classList.toggle('active', i === index);
         });
-
-        lastScrollLeft = scrollLeft;
+        currentSlideIndex = index;
     }
 
     function scrollToSlide(index) {
-        const slideWidth = slides[0].clientWidth;
+        if (index < 0 || index >= slides.length) return;
+        const direction = index > currentSlideIndex ? 'right' : 'left';
         slider.scrollTo({
-            left: slideWidth * index,
+            left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
-        updateDots();
+        updateDots(index, direction);
     }
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
+            const direction = index > currentSlideIndex ? 'right' : 'left';
             scrollToSlide(index);
+            updateDots(index, direction);
         });
     });
 
+    let isScrolling;
     slider.addEventListener('scroll', () => {
-        window.requestAnimationFrame(updateDots);
+        if (isScrolling) return;
+        
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            const scrollLeft = slider.scrollLeft;
+            const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+            const newIndex = Math.round(scrollLeft / slideWidth);
+            const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
+            lastScrollLeft = scrollLeft;
+            
+            if (newIndex !== currentSlideIndex) {
+                updateDots(newIndex, direction);
+            }
+        }, 100);
     });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = [...slides].indexOf(entry.target);
+                const direction = index > currentSlideIndex ? 'right' : 'left';
+                updateDots(index, direction);
+            }
+        });
+    }, {
+        root: slider,
+        threshold: 0.5
+    });
+
+    slides.forEach(slide => observer.observe(slide));
 
     let xDown = null;
     let yDown = null;
@@ -73,9 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (Math.abs(xDiff) > Math.abs(yDiff)) {
             if (xDiff > 0) {
-                scrollToSlide(Math.min(slides.length - 1, Math.round(slider.scrollLeft / slides[0].clientWidth) + 1));
+                scrollToSlide(currentSlideIndex + 1);
             } else {
-                scrollToSlide(Math.max(0, Math.round(slider.scrollLeft / slides[0].clientWidth) - 1));
+                scrollToSlide(currentSlideIndex - 1);
             }
         }
 
