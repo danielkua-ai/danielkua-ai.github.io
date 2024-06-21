@@ -44,36 +44,56 @@ header nav ul li a {
 .hero {
     position: relative;
     height: 100vh; /* Ensure the hero section takes full viewport height */
-    background: url('images/hero-image1.jpg') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    text-align: center; /* Center the text */
+    overflow: hidden;
 }
 
-.hero-content {
-    background: rgba(0, 0, 0, 0.5); /* Optional: Add a background for better text visibility */
+.hero-slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hero-slider .slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-slider .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-slider .slide .caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 5px;
+    width: 80%;
+    text-align: center;
 }
 
-.hero h1, .hero p {
-    color: white; /* Ensure the text is visible on the image */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Optional: Add text shadow for better readability */
-}
-
-.hero h1 {
+.hero-slider .slide .caption h1 {
     font-size: 40px;
     margin-bottom: 10px;
+    color: white;
 }
 
-.hero p {
+.hero-slider .slide .caption p {
     font-size: 18px;
     margin-bottom: 20px;
+    color: white;
 }
 
-.learn-more-button {
+.hero-slider .slide .caption .learn-more-button {
     display: inline-block;
     background: #fff;
     color: #333;
@@ -82,9 +102,27 @@ header nav ul li a {
     border-radius: 5px;
 }
 
+.hero-slider .slide.active {
+    opacity: 1;
+}
+
 .slider-nav {
     text-align: center;
     margin-top: 20px;
+}
+
+.slider-nav .dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.slider-nav .dot.active {
+    background-color: #717171;
 }
 
 footer {
