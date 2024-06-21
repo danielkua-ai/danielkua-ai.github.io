@@ -19,33 +19,35 @@
             </nav>
         </div>
     </header>
-    <section class="hero-slider">
-        <div class="slide">
-            <img src="images/hero-image1.jpg" alt="Hero Image 1">
-            <div class="caption">
-                <h1>Hello World!</h1>
-                <p>Welcome to my website!</p>
-                <a href="#" class="learn-more-button">Learn more</a>
+    <div class="hero-slider-container">
+        <section class="hero-slider">
+            <div class="slide">
+                <img src="images/hero-image1.jpg" alt="Hero Image 1">
+                <div class="caption">
+                    <h1>Hello World!</h1>
+                    <p>Welcome to my website!</p>
+                    <a href="#" class="learn-more-button">Learn more</a>
+                </div>
             </div>
-        </div>
-        <div class="slide">
-            <img src="images/hero-image2.jpg" alt="Hero Image 2">
-            <div class="caption">
-                <h1>Innovating AI</h1>
-                <p>Statistics and Machine Learning</p>
-                <a href="#" class="learn-more-button">Learn more</a>
+            <div class="slide">
+                <img src="images/hero-image2.jpg" alt="Hero Image 2">
+                <div class="caption">
+                    <h1>Innovating AI</h1>
+                    <p>Statistics and Machine Learning</p>
+                    <a href="#" class="learn-more-button">Learn more</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
     <div class="slider-nav">
-        <span class="dot" onclick="scrollToSlide(0)"></span>
-        <span class="dot" onclick="scrollToSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
     </div>
     <footer>
         <div class="container">
             <p>&copy; 2024 My Personal Website. All rights reserved.</p>
         </div>
     </footer>
-    <script src="scripts/main.js"></script>
+    <script src="scripts/slider.js"></script>
 </body>
 </html>
