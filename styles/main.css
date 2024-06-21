@@ -46,6 +46,7 @@ nav ul li a {
 
 .slide {
     min-width: 100%;
+    flex-shrink: 0;
     transition: transform 0.5s ease;
 }
 
