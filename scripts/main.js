@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const progress = (scrollLeft % slideWidth) / slideWidth;
         const currentIndex = Math.floor(scrollLeft / slideWidth);
-        const direction = currentIndex > previousSlideIndex ? 'right' : 'left';
 
         dots.forEach((dot, i) => {
             const fill = dot.querySelector('.fill');
             if (i < currentIndex) {
                 fill.style.width = '100%';
             } else if (i === currentIndex) {
+                const direction = currentIndex > previousSlideIndex ? 'right' : 'left';
                 if (direction === 'right') {
                     fill.style.width = `${progress * 100}%`;
                 } else {
