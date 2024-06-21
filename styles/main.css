@@ -144,7 +144,7 @@ nav ul li a {
 
 .slider-nav .fill {
     position: absolute;
-    top: -15px;
+    top: 0;
     left: 0;
     height: 15px;
     width: 15px;
