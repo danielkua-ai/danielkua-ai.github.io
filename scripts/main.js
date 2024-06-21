@@ -19,17 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function scrollToSlide(index) {
         if (index < 0 || index >= slides.length) return;
+        const direction = index > slideIndex ? 'right' : 'left';
         slider.scrollTo({
             left: slides[index].offsetLeft,
             behavior: 'smooth'
         });
-        updateDots(index, 'right');
+        updateDots(index, direction);
+        slideIndex = index;
     }
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
-            slideIndex = index;
+            const direction = index > slideIndex ? 'right' : 'left';
             scrollToSlide(index);
+            updateDots(index, direction);
         });
     });
 
