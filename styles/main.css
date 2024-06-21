@@ -35,7 +35,7 @@ nav ul li a {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     position: relative;
-    padding: 20px;
+    padding: 20px 0 20px 20px; /* Adjust padding on the left side */
     gap: 20px;
     scrollbar-width: none; /* Firefox */
 }
@@ -55,6 +55,10 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     overflow: hidden;
+}
+
+.slide:first-child {
+    margin-left: 20px; /* Adding margin to the first slide */
 }
 
 .slide:hover {
