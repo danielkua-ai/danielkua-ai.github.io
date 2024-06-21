@@ -62,7 +62,7 @@ nav ul li a {
 }
 
 .slide img {
-    width: 100%;
+    width: 60%;
     height: 60vh;
     object-fit: cover;
     border-radius: 20px;
