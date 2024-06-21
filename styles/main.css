@@ -35,6 +35,7 @@ nav ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;  /* Ensure it takes full width */
 }
 
 nav ul li {
@@ -54,6 +55,7 @@ nav ul li a {
     flex-direction: column;
     justify-content: center;
     padding: 0 20px;
+    min-height: 0; /* Ensure it can handle overflow content */
 }
 
 .hero-slider-container {
