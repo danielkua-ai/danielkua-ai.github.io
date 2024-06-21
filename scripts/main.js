@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDots(index) {
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
+            const fill = dot.querySelector('.fill');
+            if (i === index) {
+                fill.style.width = '100%';
+            } else {
+                fill.style.width = '0';
+            }
         });
     }
 
