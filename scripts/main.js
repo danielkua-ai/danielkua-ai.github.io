@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
         const progress = (scrollLeft % slideWidth) / slideWidth;
         const currentIndex = Math.floor(scrollLeft / slideWidth);
+        const direction = scrollLeft > previousScrollLeft ? 'right' : 'left';  // Determine the scroll direction
 
         dots.forEach((dot, i) => {
             const fill = dot.querySelector('.fill');
             if (i < currentIndex) {
                 fill.style.width = '100%';
             } else if (i === currentIndex) {
-                const direction = scrollLeft > previousScrollLeft ? 'right' : 'left';  // Determine the scroll direction
                 if (direction === 'right') {
                     fill.style.width = `${progress * 100}%`;
                 } else {
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDots(index);
         slideIndex = index;
         previousSlideIndex = index;
+        previousScrollLeft = slides[index].offsetLeft;  // Update previousScrollLeft to match the new position
         setTimeout(() => {
             isUserScrolling = false;
         }, 500);
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateDots(index);
                 slideIndex = index;
                 previousSlideIndex = index;
+                previousScrollLeft = slides[index].offsetLeft;  // Update previousScrollLeft to match the new position
             }
         });
     }, {
