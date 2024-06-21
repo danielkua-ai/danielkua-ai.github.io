@@ -42,23 +42,30 @@ header nav ul li a {
 
 .hero {
     position: relative;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .hero-slider {
     width: 100%;
-    overflow: hidden;
+    height: 100%;
     position: relative;
 }
 
 .hero-slider .slide {
     width: 100%;
-    position: relative;
-    display: none;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
 
 .hero-slider .slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
 }
 
 .hero-slider .slide .caption {
@@ -66,6 +73,9 @@ header nav ul li a {
     bottom: 30px;
     left: 30px;
     color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .hero-slider .slide .caption h2 {
@@ -88,7 +98,7 @@ header nav ul li a {
 }
 
 .hero-slider .slide.active {
-    display: block;
+    opacity: 1;
 }
 
 .slider-nav {
