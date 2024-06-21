@@ -10,12 +10,11 @@ body {
 header {
     background-color: white;
     padding: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the navigation items */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -149,7 +148,6 @@ footer {
     padding: 10px 0; /* Adjusted padding */
     text-align: center;
     font-size: 0.8em; /* Adjust font size */
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
