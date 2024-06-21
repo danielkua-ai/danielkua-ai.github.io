@@ -21,8 +21,9 @@ header {
 
 header .container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -30,7 +31,7 @@ header .container {
 
 header .logo img {
     height: 40px;
-    margin-right: 20px; /* Add some space between the logo and the text */
+    margin-bottom: 10px; /* Add some space between the logo and the navigation */
 }
 
 nav ul {
@@ -55,7 +56,7 @@ nav ul li a {
 
 .hero-slider-container {
     flex: 1;
-    padding-top: 80px; /* Adjust this value to ensure there's space for the fixed header */
+    padding-top: 120px; /* Adjust this value to ensure there's space for the fixed header */
     overflow: hidden;
 }
 
