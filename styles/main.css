@@ -75,12 +75,13 @@ nav ul li a {
     overflow: hidden;
     position: relative;
     margin: 0 10px; /* Adjust margin for left and right hints */
+    max-height: 70vh; /* Set max height for the slides */
 }
 
 .slide img {
     width: 100%;
-    height: auto;
-    object-fit: cover;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the slide area without stretching */
 }
 
 .caption {
