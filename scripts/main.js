@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const slider = document.querySelector('.hero-slider');
+    let slideIndex = 0;
 
     function updateDots(index) {
         dots.forEach((dot, i) => {
@@ -10,26 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function scrollToSlide(index) {
+        if (index < 0 || index >= slides.length) return;
         slider.scrollTo({
             left: slides[index].offsetLeft - slider.offsetLeft,
             behavior: 'smooth'
         });
         updateDots(index);
+        slideIndex = index;
     }
 
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => scrollToSlide(index));
     });
 
-    let isScrolling;
     slider.addEventListener('scroll', () => {
-        window.clearTimeout(isScrolling);
-        isScrolling = setTimeout(() => {
-            const scrollLeft = slider.scrollLeft;
-            const slideWidth = slides[0].clientWidth;
-            const index = Math.round(scrollLeft / slideWidth);
+        const scrollLeft = slider.scrollLeft;
+        const slideWidth = slides[0].clientWidth + parseInt(window.getComputedStyle(slides[0]).marginRight);
+        const index = Math.round(scrollLeft / slideWidth);
+        if (index !== slideIndex) {
             updateDots(index);
-        }, 100);
+            slideIndex = index;
+        }
     });
 
     const observer = new IntersectionObserver((entries) => {
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
                 updateDots(index);
+                slideIndex = index;
             }
         });
     }, {
