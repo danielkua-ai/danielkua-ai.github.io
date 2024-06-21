@@ -7,15 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateDots(index, direction) {
         dots.forEach((dot, i) => {
+            const fill = dot.querySelector('.fill');
             if (direction === 'right') {
-                dot.classList.toggle('active', i <= index);
+                fill.style.width = i <= index ? '100%' : '0';
             } else {
-                dot.classList.toggle('active', i >= index);
+                fill.style.width = i >= index ? '100%' : '0';
             }
         });
+        slideIndex = index;
     }
 
     function scrollToSlide(index) {
+        if (index < 0 || index >= slides.length) return;
         slider.scrollTo({
             left: slides[index].offsetLeft,
             behavior: 'smooth'
@@ -39,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = Math.round(scrollLeft / slideWidth);
             const direction = scrollLeft > lastScrollLeft ? 'right' : 'left';
             lastScrollLeft = scrollLeft;
-            slideIndex = index;
             updateDots(index, direction);
         }, 100);
     });
@@ -49,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const index = [...slides].indexOf(entry.target);
                 const direction = entry.boundingClientRect.left < entry.rootBounds.left ? 'right' : 'left';
-                slideIndex = index;
                 updateDots(index, direction);
             }
         });
