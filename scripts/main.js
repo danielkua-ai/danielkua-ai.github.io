@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     dots.forEach((dot, index) => {
+        dot.innerHTML = '<div class="fill"></div>';
         dot.addEventListener('click', () => {
             isUserScrolling = true;
             scrollToSlide(index);
